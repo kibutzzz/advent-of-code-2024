@@ -1,14 +1,13 @@
-const fs = require('node:fs');
-const { report } = require('node:process');
+const FileReader = require('../io/filreReader');
+
+const fileReader = new FileReader();
 
 const VALUE_SEPARATOR = ' ';
-const LINE_SEPARATOR = '\n';
 
 function main() {
     const listsPath = process.argv[2];
 
-    const fileData = fs.readFileSync(listsPath, 'utf8')
-    const reports = fileData.split(LINE_SEPARATOR).map(line => line.split(VALUE_SEPARATOR)).map(toMutipliedReport());
+    const reports = fileReader.readLines(listsPath).map(line => line.split(VALUE_SEPARATOR)).map(toMutipliedReport());
 
     return reports.filter(report => {
         return report.possibilities.filter(isIncreasingOrDecreasing())

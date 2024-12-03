@@ -1,4 +1,6 @@
-const fs = require('node:fs');
+const FileReader = require('../io/filreReader');
+
+const fileReader = new FileReader();
 
 const VALUE_SEPARATOR = '   ';
 
@@ -7,10 +9,9 @@ const sortingOrder = (a, b) => a - b;
 function main() {
     const listsPath = process.argv[2];
 
-    const fileData = fs.readFileSync(listsPath, 'utf8')
     const firstList = [];
     const secondList = [];
-    fileData.split('\n').forEach(addToParallelLists(firstList, secondList));
+    fileReader.readLines(listsPath).forEach(addToParallelLists(firstList, secondList));
 
     const firstSorted = firstList.toSorted(sortingOrder);
     const secondSorted = secondList.toSorted(sortingOrder);

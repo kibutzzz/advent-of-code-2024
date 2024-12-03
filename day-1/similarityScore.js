@@ -1,14 +1,15 @@
-const fs = require('node:fs');
+const FileReader = require('../io/filreReader');
+
+const fileReader = new FileReader();
 
 const VALUE_SEPARATOR = '   ';
 
 function main() {
     const listsPath = process.argv[2];
 
-    const fileData = fs.readFileSync(listsPath, 'utf8')
     const firstList = [];
     const secondListMap = new Map();
-    fileData.split('\n').forEach(addToParallelLists(firstList, secondListMap));
+    fileReader.readLines(listsPath).forEach(addToParallelLists(firstList, secondListMap));
 
     return firstList.map(calculateSimilarity(secondListMap)).reduce((a, b) => a + b, 0);
 }
