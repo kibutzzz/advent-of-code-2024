@@ -5,7 +5,11 @@ const LINE_SEPARATOR = '\n';
 class FileReader {
 
     readLines(path) {
-        return fs.readFileSync(path, 'utf8').split(LINE_SEPARATOR);
+        return this.read(path).split(LINE_SEPARATOR);
+    }
+
+    read(path) {
+        return fs.readFileSync(path, 'utf8');
     }
 }
 
