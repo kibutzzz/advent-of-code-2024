@@ -1,4 +1,3 @@
-const { off } = require("process");
 const FileReader = require("../io/filreReader");
 const fileReader = new FileReader();
 
