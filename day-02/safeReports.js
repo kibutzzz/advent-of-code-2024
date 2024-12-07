@@ -1,4 +1,4 @@
-const FileReader = require('../io/filreReader');
+const FileReader = require('../io/fileReader');
 
 const fileReader = new FileReader();
 

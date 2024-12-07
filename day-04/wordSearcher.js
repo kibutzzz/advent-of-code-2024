@@ -1,5 +1,5 @@
 const { off } = require("process");
-const FileReader = require("../io/filreReader");
+const FileReader = require("../io/fileReader");
 const fileReader = new FileReader();
 
 const SEARCH_TERM = "XMAS"
