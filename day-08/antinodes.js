@@ -1,4 +1,7 @@
 const FileReader = require("../io/fileReader");
+const calculateMatrixWithAntinodes = require("./calculateMatrixWithAntinodes");
+const groupNodesByFrequency = require("./groupNodesByFrequency");
+const extractNodes = require("./extractNodes");
 
 const fileReader = new FileReader();
 
@@ -17,16 +20,6 @@ function main() {
     const matrixWithAntinodes = calculateMatrixWithAntinodes(matrix, antinodes);
     
     return matrixWithAntinodes.flat().filter(value => value === "#").length;
-}
-
-function calculateMatrixWithAntinodes(matrix, antinodes) {
-    const matrixWithAntinodes = matrix.map(row => row.map(cell => cell));
-    antinodes.forEach(({ x, y }) => {
-        if(x >= 0 && x < matrixWithAntinodes.length && y >= 0 && y < matrixWithAntinodes[0].length) {
-            matrixWithAntinodes[y][x] = "#";
-        }
-    });
-    return matrixWithAntinodes;
 }
 
 function calculateAntinodeForGroups(groupedNodes) {
@@ -53,29 +46,6 @@ function calculatePositionOfAntinode(node, otherNode, distance) {
         { x: node.x + distance.x, y: node.y + distance.y },
         { x: otherNode.x - distance.x, y: otherNode.y - distance.y }
     ];
-}
-
-
-function groupNodesByFrequency(nodes) {
-    return nodes.reduce((acc, node) => {
-        if (!acc[node.frequency]) {
-            acc[node.frequency] = [];
-        }
-        acc[node.frequency].push(node);
-        return acc;
-    }, {});
-}
-
-function extractNodes(matrix) {
-    const nodes = [];
-    matrix.forEach((row, y) => {
-        row.forEach((frequency, x) => {
-            if (frequency !== ".") {
-                nodes.push({ frequency, x, y });
-            }
-        });
-    });
-    return nodes;
 }
 
 function calculateDistanceVector({ x, y }, other) {
