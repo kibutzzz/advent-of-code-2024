@@ -10,27 +10,8 @@ function main() {
 
     const trailheads = findTrailheads(map)
 
-    const scenarios = trailheads.map(({ x, y }) => findPossibleTrails(map, { x, y }))
-
-    const scores = scenarios.map(toScore())
-
-    const total = scores.reduce((acc, value) => value + acc, 0)
-
-    return total
-}
-
-function toScore() {
-    return possibilities => {
-        const visited = new Set();
-
-        possibilities.forEach(possibility => {
-            const last = possibility[possibility.length-1]
-            const hash = last.x + "-"+last.y
-            visited.add(hash)
-        })
-
-        return visited.size
-    }
+    const scenarios = trailheads.flatMap(({ x, y }) => findPossibleTrails(map, { x, y }))
+    return scenarios.length
 }
 
 function findTrailheads(map) {
